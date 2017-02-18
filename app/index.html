@@ -12,32 +12,174 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="/bower_components/materialize/bin/materialize.css" />
+    <link rel="stylesheet" href="/bower_components/animate.css/animate.css" />
+    <link rel="stylesheet" href="/bower_components/fullpage.js/dist/jquery.fullpage.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    
+
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
+    <script src="/bower_components/d3/d3.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
     <!-- endbuild -->
   </head>
   <body>
     <!--[if IE]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    
-    <div class="hero-unit">
-      <h1>'Allo, 'Allo!</h1>
-      <p>You now have</p>
-      <ul>
-        <li>HTML5 Boilerplate</li>
-        <li>Modernizr</li>
-        <li>jQuery</li>
-      </ul>
+
+    <!--nav bar-->
+    <nav class="nav-extended cyan darken-1" id="nav">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo center">Cara Reynolds</a>
+        </div>
+      </nav>
+      <!--About-->
+      <div class="row">
+      <div class="col s12">
+
+        <div class="section no-pad-bot" id="index-banner">
+          <div class="container">
+            <br><br>
+            <h1 class="header center light" id="hello">Hi, I'm Cara.</h1>
+            <div class="row center">
+              <h4 class="header col s12 amber-text text-lighten-3" id="tagline">Let me design for you.</h4>
+            </div>
+            <div class="row center">
+              <p class="col s12 light">A native of Orlando, Florida, I have earned my Bachelor of Arts in Digital Media from the Univeristy of Central Florida.
+                <br>I work in a traditional and digital medium as an illustrator and content creator.</p>
+            </div>
+            <br>
+            </div>
+          </div>
+      </div>
+      </div>
+
+      <!--gallery-->
+
+     <!--skills-->
+     <div class="row">
+     <div class="col s12">
+        <div class=container>
+           <br><br>
+           <h4 class="header center lighten cyan-text">Skills</h4>
+        </div>
+      </div>
+      </div>
+
+      <div class="container">
+      <script>
+      //making my chart
+      //add data and set radius
+      var data = [10, 20, 30, 40, 50];
+      var skills = ['one', 'two', 'three', 'four', 'five'];
+      var r = 200;
+
+      //add color
+      var color = d3.scale.ordinal()
+          .range(['red', 'blue', 'orange', 'yellow', 'green']);
+
+      //set canvas
+      var canvas = d3.select('body').append('svg')
+          .attr('width', 0)
+          .attr('height', 0);
+
+      var group = canvas.append('g')
+          .attr('transform', 'translate(600, 200)');
+
+      //create arc and pie generator
+      var arc = d3.svg.arc()
+          .innerRadius(5)
+          .outerRadius(r);
+
+      var pie = d3.layout.pie()
+          .value(function (d) {
+          return d;
+      });
+
+      var arcs = group.selectAll('.arc')
+          .data(pie(data))
+          .enter()
+          .append('g')
+          .attr('class', 'arc');
+
+      //create path to display
+      arcs.append('path')
+          .attr('d', arc) //data
+          .attr('fill', function (d) {
+          return color(d.data); }); //color
+
+      //add data text
+      arcs.append('text')
+          .attr('transform', function (d) {
+          return 'translate(' + arc.centroid(d) + ')';
+      })
+          .attr('text-anchor', 'middle')
+          .attr('font-size', '1.5em')
+          .text(function (d) {
+          return d.skills;
+      });
+
+      //animate transition
+      canvas.transition()
+            .duration(5000)
+            .delay(10)
+            .attr('width', 1500)
+            .attr('height', 400);
+
+      //displaying skills
+      var skills = ['one', 'two', 'three', 'four', 'five'];
+      </script>
+      </div>
+
+     <!--Projects-->
+     <div class="row">
+     <div class="col s12">
+        <div class=container>
+           <br><br>
+           <h4 class="header center lighten cyan-text">Projects</h4>
+           <br><br>
+              <ul class="tabs">
+                <li class="tab col s4 center"><a href="#test1">Video Game Concept Art</a></li>
+                <li class="tab col s4 center"><a href="#test2">Web Comic Production</a></li>
+                <li class="tab col s4 center"><a href="#test3">Website Production</a></li>
+              </ul>
+           <div id="test1" class="col s12">- Use of Photoshop to create original cover art for a video game concept.<br><br> - Storytelling through illustration and digital painting.</div>
+           <div id="test2" class="col s12">- Team effort of producing a five episode web comic.<br><br> - Production included working under deadline, collaboration, managing social media accounts, story concept, and creating storyboards.</div>
+           <div id="test3" class="col s12">- Creation of a website to understand HTML coding and CSS design<br><br> - Process included designing wireframes and using Responsive Grid System.</div>
+        </div>
+          <br><br>
     </div>
-    
+    </div>
+
+    <!--footer-->
+      <footer class="page-footer cyan">
+        <div class="container">
+          <div class="row">
+            <div class="col s12">
+              <h3 class="center amber-text text-lighten-2" id="hireme">Hire Me</h3>
+              <h5 class="center white-text">Contact Info</h5>
+              <p class="center grey-text text-lighten-4">placeholder</p>
+              <p class="center grey-text text-lighten-4">placeholder</p>
+              <p class="center grey-text text-lighten-4">placeholder</p>
+              <p class="center grey-text text-lighten-4">placeholder</p>
+
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          Made by <a class="amber-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+          </div>
+        </div>
+      </footer>
+
+
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -53,9 +195,11 @@
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <script src="/bower_components/materialize/bin/materialize.js"></script>
+    <script src="/bower_components/fullpage.js/dist/jquery.fullpage.js"></script>
+    <script src="/bower_components/d3/d3.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    
+
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->

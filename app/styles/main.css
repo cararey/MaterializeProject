@@ -6,7 +6,7 @@
 }
 
 body {
-  background: #fafafa;
+  background: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
 }
@@ -26,4 +26,34 @@ body {
   font-size: 60px;
   line-height: 1;
   letter-spacing: -1px;
+}
+
+
+li{
+  color: #00cbd4;
+}
+
+.active{
+  font-size: 16px;
+}
+
+#test1, #test2, #test3 {
+  padding-top: 30px;
+  padding-bottom: 100px;
+}
+
+#hello {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-delay: 2s;
+}
+
+#tagline {
+  -webkit-animation-duration: 8s;
+  -webkit-animation-delay: 3s;
+}
+
+#hireme {
+  -webkit-animation-duration: 2s;
+  -webkit-animation-delay: 2s;
+  -webkit-animation-iteration-count: infinite;
 }
