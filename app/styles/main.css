@@ -28,6 +28,13 @@ body {
   letter-spacing: -1px;
 }
 
+p{ 
+	padding-bottom: 10px;
+}
+
+h4{
+	padding-top: 5px;
+}
 
 li{
   color: #00cbd4;
@@ -57,3 +64,30 @@ li{
   -webkit-animation-delay: 2s;
   -webkit-animation-iteration-count: infinite;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
