@@ -6,10 +6,53 @@
 }
 
 body {
-  background: #fff;
+  background: #FFFCFC;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
 }
+
+#nav{
+	background: #FFCCBC;
+}
+
+#hello{
+	color: #FFAB91;
+
+}
+
+#tagline{
+	font-family: 'Julius Sans One', sans-serif;
+}
+
+#topname{
+	font-family: 'Amatic SC', cursive;
+	font-size: 40px;
+	font-weight: bold;
+	letter-spacing: 8px;
+}
+
+#portref{
+  color: #FFF;
+  font-family: 'Julius Sans One', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  padding-right: 20px;
+}
+
+
+h4{
+  font-family: 'Julius Sans One', sans-serif;
+    font-weight: bold;
+}
+
+.caption{
+  color: #000;
+  font-size: 16px;
+}
+
+
+
+
 
 .hero-unit {
   margin: 50px auto 0 auto;
@@ -28,26 +71,28 @@ body {
   letter-spacing: -1px;
 }
 
-p{ 
-	padding-bottom: 10px;
-}
-
-h4{
-	padding-top: 5px;
-}
 
 li{
-  color: #00cbd4;
-}
-
-.active{
+  color: #FFAB91;
   font-size: 16px;
 }
 
-#test1, #test2, #test3 {
-  padding-top: 30px;
-  padding-bottom: 100px;
+.active{
+  font-size: 22px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #hello {
   -webkit-animation-duration: 3s;
@@ -66,28 +111,12 @@ li{
 }
 
 
+.arc path {
+  stroke: #fff;
+  stroke-width: 3px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.d3-label {
+  color: #fff;
+  font-family: "Helvetica";
+}

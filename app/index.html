@@ -19,6 +19,7 @@
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+	<style>@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Julius+Sans+One');</style>
     <!-- endbuild -->
 
     <!-- build:js scripts/vendor/modernizr.js -->
@@ -33,11 +34,17 @@
     <![endif]-->
 
     <!--nav bar-->
-    <nav class="nav-extended cyan darken-1" id="nav">
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo center">Cara Reynolds</a>
-        </div>
-      </nav>
+    <nav id="nav">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center" id="topname">Cara Reynolds</a>
+        <ul class="right hide-on-med-and-down">
+           <li id="portref"><a href="https://www.behance.net/carareynolds">Behance</a></li>
+        </ul>
+      </div>
+    </nav>
+
+
+
       <!--About-->
       <div class="row">
       <div class="col s12">
@@ -45,132 +52,158 @@
         <div class="section no-pad-bot" id="index-banner">
           <div class="container">
             <br><br>
-            <h1 class="header center light" id="hello">Hi, I'm Cara.</h1>
+            <h1 class="header center" id="hello">Hi, I'm Cara.</h1>
             <div class="row center">
-              <h4 class="header col s12 amber-text text-lighten-3" id="tagline">Let me design for you.</h4>
+              <h4 class="header col s12 brown-text lighten-3" id="tagline">Let me design for you.</h4>
             </div>
             <div class="row center">
-              <p class="col s12 light">A native of Orlando, Florida, I have earned my Bachelor of Arts in Digital Media from the Univeristy of Central Florida.
+              <p class="col s12 light">A native of Orlando, I have earned my Bachelor of Arts in Digital Media from the Univeristy of Central Florida.
                 <br>I work in a traditional and digital medium as an illustrator and content creator.</p>
             </div>
-            <br>
             </div>
           </div>
       </div>
       </div>
 
-      <!--gallery-->
-
-     <!--skills-->
+     <!--Skills-->
      <div class="row">
      <div class="col s12">
         <div class=container>
            <br><br>
-           <h4 class="header center lighten cyan-text">Skills</h4>
+           <h4 class="header center brown-text lighten-3">Skills</h4>
         </div>
       </div>
       </div>
 
-      <div class="container">
+	  <div class="container">
+
+		<!--d3 animation-->
       <script>
-	  	   
-		<!--this one works, but with no text-->
-		var width = 760,
-			height = 300,
-			radius = Math.min(width, height) / 2 - 10;
 
-		var data = d3.range(5).map(Math.random).sort(d3.descending);
+	     /*working test*/
+		var width = 400,
+			height = 400,
+			offset = 100,
+			radius = Math.min(width, height) / 2;
 
-		var color = d3.scale.category20();
+		var color = d3.scale.ordinal()
+			.range(["#FFBBCC", "#FFFFCC", "#FFDDCC", "#CCDDFF", "#CCFFDD"]);
 
 		var arc = d3.svg.arc()
-			.outerRadius(radius);
+			.outerRadius(radius)
+			.innerRadius(radius - 180);
 
-		var pie = d3.layout.pie();
+		/* second arc for labels*/
+		var arc2 = d3.svg.arc()
+		  .outerRadius(radius)
+		  .innerRadius(radius + 2);
+
+		var pie = d3.layout.pie()
+			.sort(null)
+			.startAngle(1.1*Math.PI)
+			.endAngle(3.1*Math.PI)
+			.value(function(d) { return d.level; });
+
+		var data = [
+		  {skill: '3D Modeling', level: 15},
+		  {skill: 'HTML&CSS', level: 30},
+		  {skill: 'Customer Service', level: 40},
+		  {skill: 'Content Editing', level: 50},
+		  {skill: 'Illustration', level: 45}
+
+		];
 
 		var svg = d3.select("body").append("svg")
-			.datum(data)
-			.attr("width", width)
-			.attr("height", height)
-		  .append("g")
-			.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+			.attr("id", "chart")
+			.attr("width", width + offset)
+			.attr("height", height + offset)
+			.attr('viewBox', '0 0' + width + offset + ''+ height + offset +'')
+			.attr('perserveAspectRatio', 'xMinYMid')
+		    .append("g")
+			.attr("transform", "translate(" + (width + offset) / 2 + "," + (height + offset) / 2 + ")");
 
-		var arcs = svg.selectAll("g.arc")
-			.data(pie)
-		  .enter().append("g")
-			.attr("class", "arc");
+		d3.select("body")
+			.attr("align","center");
 
-		arcs.append("path")
-			.attr("fill", function(d, i) { return color(i); })
-		  .transition()
-			.ease("bounce")
-			.duration(2000)
-			.attrTween("d", tweenPie)
-		  .transition()
-			.ease("elastic")
-			.delay(function(d, i) { return 2000 + i * 50; })
-			.duration(10000)
-			.attrTween("d", tweenDonut);
-			
-		arcs.append("text")
-			.attr("transform", function(d) {
-			d.innerRadius = 0;
-			d.outerRadius = r;
-				return "translate(" + arc.centroid(d) + ")";
-					})
-			.attr("text-anchor", "middle")
-			.text(function(d, i) { return data[i].label; });
+		  data.forEach(function(d) {
+			d.level = +d.level;
+		  });
 
-		function tweenPie(b) {
-		  b.innerRadius = 0;
-		  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-		  return function(t) { return arc(i(t)); };
-		}
+		  var g = svg.selectAll(".arc")
+			  .data(pie(data))
+			  .enter().append("g")
+			  .attr("class", "arc");
 
-		function tweenDonut(b) {
-		  b.innerRadius = radius * .4;
-		  var i = d3.interpolate({innerRadius: 0}, b);
-		  return function(t) { return arc(i(t)); };
-		}
-		
+		  g.append("path")
+			  .style("fill", function(d) { return color(d.data.skill); })
+			  .transition().delay(function(d, i) { return i * 2000; }).duration(500)
+			  .attrTween('d', function(d) {
+				 var i = d3.interpolate(d.startAngle+0.1, d.endAngle);
+				 return function(t) {
+				   d.endAngle = i(t);
+				   return arc(d);
+				 };
+			  });
+
+		  g.append("text")
+			  .attr("transform", function(d) { return "translate(" + arc2.centroid(d) + ")"; })
+			  .attr("dy", ".35em")
+			  .attr("class", "d3-label")
+			  .style("text-anchor", "middle")
+			  .text(function(d) { return d.data.skill; });
+
+		var aspect = width / height,
+			chart = $("#chart");
+		$(window).on("resize", function() {
+			var targetWidth = Math.min(width + offset, chart.parent().width());
+			chart.attr("width", targetWidth);
+			chart.attr("height", targetWidth / aspect);
+		}).trigger('resize');
 
       </script>
+	  </div>
       </div>
-	  
+	  </div>
 
-     <!--Projects-->
+
+     <!--Portfolio-->
      <div class="row">
      <div class="col s12">
         <div class=container>
            <br><br>
-           <h4 class="header center lighten cyan-text">Projects</h4>
            <br><br>
-		      <ul class="tabs">
-                <li class="tab col s4 center"><a href="#test1">Video Game Concept Art</a></li>
-                <li class="tab col s4 center"><a href="#test2">Web Comic Production</a></li>
-                <li class="tab col s4 center"><a href="#test3">Website Production</a></li>
-              </ul>
-           <div id="test1" class="col s12">- Use of Photoshop to create original cover art for a video game concept.<br><br> - Storytelling through illustration and digital painting.</div>
-           <div id="test2" class="col s12">- Team effort of producing a five episode web comic.<br><br> - Production included working under deadline, collaboration, managing social media accounts, story concept, and creating storyboards.</div>
-           <div id="test3" class="col s12">- Creation of a website to understand HTML coding and CSS design<br><br> - Process included designing wireframes and using Responsive Grid System.</div>
+           <h4 class="header center brown-text lighten-3">Portfolio</h4>
+           <br>
+           <ul class="collapsible popout" data-collapsible="accordion">
+             <li>
+               <div class="collapsible-header" id="one">Video Game Concept Art</div>
+               <div class="collapsible-body"><span><img src="images/scythe.jpg"><br><p class="caption">Original concept art done digitally in Photoshop.<p></span></div>
+             </li>
+             <li>
+               <div class="collapsible-header" id="two">Mobile App Prototype</div>
+               <div class="collapsible-body"><span><img src="images/appone.jpg"> <img src="images/apptwo.jpg"><br><p class="caption">Layout for protoype mobile app, designed in Muse.<p></span></div>
+             </li>
+             <li>
+               <div class="collapsible-header" id="three">Illustration</div>
+               <div class="collapsible-body"><span><img src="images/illone.jpg"> <img src="images/illtwo.jpg"><br><p class="caption">Original illustrations. First medium in gouache, second medium in pencil and ink.<p></span></div>
+             </li>
+           </ul>
         </div>
+          <br><br>
           <br><br>
     </div>
     </div>
 
+
     <!--footer-->
-      <footer class="page-footer cyan">
+      <footer class="page-footer deep-orange lighten-4">
         <div class="container">
           <div class="row">
             <div class="col s12">
-              <h3 class="center amber-text text-lighten-2" id="hireme">Hire Me</h3>
+              <h4 class="center brown-text lighten-3" id="hireme">Hire Me</h4>
               <h5 class="center white-text">Contact Info</h5>
-              <p class="center grey-text text-lighten-4">placeholder</p>
-              <p class="center grey-text text-lighten-4">placeholder</p>
-              <p class="center grey-text text-lighten-4">placeholder</p>
-              <p class="center grey-text text-lighten-4">placeholder</p>
-
-            </div>
+              <p class="center grey-text text-lighten-4">carareynolds13@knights.ucf.edu<br>(123)-000-1234</p>
+           </div>
           </div>
         </div>
         <div class="footer-copyright">
